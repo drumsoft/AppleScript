@@ -1,6 +1,16 @@
 AppleScripts for iTunes song's metadata.
 
-.applescript ファイルは日本語文字化け不可避なのでこっちに説明だけ。
+------------------------------------------------------------
+fix insane added dates.command
+
+-- remove selected tracks and re-add with track number order to fix randomized "date added" order.
+-- usage: select all tracks of target albums and run the script.
+
+-- 選択中のトラックを一度削除し、正しい順序で再登録する事で「追加日」を正しい順序にする
+-- 使い方: iTunesでアルバムまるごと(複数アルバム可)選択して、スクリプトを実行
+
+-- ファイルを一度にiTunesに追加したり、iTunes Storeで購入するとデタラメな順番で追加される。再追加する事でトラック番号順に修正する。
+
 
 ------------------------------------------------------------
 Beatport - remove "Original Mix".applescript
@@ -8,7 +18,7 @@ Beatport - remove "Original Mix".applescript
 -- Remove " - Original Mix" in title from Beatport's mp3s
 -- Usage: Select songs on iTunes and Run.
 
--- 曲名から Beatport の " - Original Mix" を抜く
+-- 曲名から Beatport の " - Original Mix", " (Original Mix)" を抜く
 -- 使い方: iTunesで曲を選択してスクリプトを実行
 
 -- Original Mix っていちいち付ける必要ねーだろ
@@ -23,7 +33,7 @@ Beatport - set track numbers.applescript
 -- 選択した曲に連番でトラック番号を振る(Beatportで買うと振られてない)
 -- 使い方: iTunesでプレイリスト中の曲をソートし、曲を選択して、スクリプトを実行
 
--- トラック番号くらい振っておいてくれ
+-- 最近はトラック番号が振られたアルバムが増えた
 
 
 ------------------------------------------------------------
