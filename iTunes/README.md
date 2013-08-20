@@ -1,7 +1,7 @@
 AppleScripts for iTunes song's metadata.
 
 ------------------------------------------------------------
-fix insane added dates.command
+iTunesStore - fix insane added dates.command
 
 -- remove selected tracks and re-add with track number order to fix randomized "date added" order.
 -- usage: select all tracks of target albums and run the script.
@@ -37,7 +37,7 @@ Beatport - set track numbers.applescript
 
 
 ------------------------------------------------------------
-copy info from odds to evens.applescript
+iTunes - copy info from odds to evens.applescript
 
 -- Copy artist and name from odd numbered tracks to next even numbered tracks.
 -- Usage: Order copy source and destination alternately and select songs on iTunes, and Run.
@@ -49,7 +49,7 @@ copy info from odds to evens.applescript
 
 
 ------------------------------------------------------------
-swap artist and name.applescript
+iTunes - swap artist and name.applescript
 
 -- Swap artist name and song name.
 -- Usage: Select songs on iTunes and Run.
@@ -58,20 +58,4 @@ swap artist and name.applescript
 -- 使い方: iTunesで曲を選択して、スクリプトを実行
 
 -- CDDBに登録した人が間違えてたからw
-
-
-------------------------------------------------------------
-fix date added.applescript
-
--- 追加日をアルバム単位で一致させる
--- このスクリプトは動作しない。追加日 date added が read only だから。
-
--- 最近インポートした曲を探して聴く為にプレイリストを 追加日 でソートしている。
--- CDから取り込んだ曲は曲順に表示されるのだが、購入した曲はデタラメな順番で追加され、
--- リストにもデタラメな順番で表示される。
--- これを回避する為に 追加日 をアルバム単位で一致させられれば、同じアルバム内で
--- トラック番号でソートされてくれると思うのだが・・・？
--- Apple は date added を編集可能にするか、または同時に購入、インポートされた
--- 楽曲には同じ追加日 または アルバム-トラック番号順にソートした追加処理を行うべきだ
-
 
