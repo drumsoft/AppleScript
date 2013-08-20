@@ -2,6 +2,12 @@
 
 use strict;
 use warnings;
+use utf8;
+
+use Encode;
+
+binmode STDOUT, ":utf8";
+binmode STDERR, ":utf8";
 
 my $applescript_get_trackinfo = q{
 tell application "iTunes"
@@ -15,7 +21,8 @@ tell application "iTunes"
 			set thisTrackNumber to track number
 			set thisDiscNumber to disc number
 			set thisAlbum to album
-			set myString to myString & thisID & " " & thisDiscNumber & " " & thisTrackNumber & " " & my str_replace(thisAlbum, return, " ") & return
+			set thisYear to year
+			set myString to myString & thisID & " " & thisDiscNumber & " " & thisTrackNumber & " " & thisYear & " " & my str_replace(thisAlbum, return, " ") & return
 		end tell
 	end repeat
 	return myString
@@ -55,11 +62,15 @@ sub main {
 	
 	# parse
 	my %albums;
+	my %album_years;
 	map {
-		my ($id, $dnumber, $tnumber, $album) = split / /, $_, 4;
+		my ($id, $dnumber, $tnumber, $year, $album) = split / /, $_, 5;
 		$dnumber = 1 if ! $dnumber;
 		if ($id && $dnumber && $tnumber && $album) {
-			$albums{$album} = {} if ! exists $albums{$album};
+			if ( ! exists $albums{$album} ) {
+				$album_years{$album} = $year;
+				$albums{$album} = {};
+			}
 			$albums{$album}->{$dnumber} = {} if ! exists $albums{$album}->{$dnumber};
 			exists $albums{$album}->{$dnumber}->{$tnumber} and abort("ERROR: $tnumber is duplicated in $album ($dnumber)");
 			$albums{$album}->{$dnumber}->{$tnumber} = $id;
@@ -72,7 +83,7 @@ sub main {
 		my $discs = $albums{$album};
 		my $d = 1;
 		foreach my $dnumber (sort {$a <=> $b} keys %$discs) {
-			print "$album ($dnumber)";
+			print "($album_years{$album}) $album disc $dnumber : ";
 			$d == $dnumber or abort("ERROR: disc number $d expected but found $dnumber in $album");
 			$d++;
 			my $tracks = $discs->{$dnumber};
@@ -92,13 +103,19 @@ sub main {
 		my $album = $_;
 		my $discs = $albums{$album};
 		foreach my $dnumber (sort {$a <=> $b} keys %$discs) {
-			printf "re-add: %s (%d)\n", $album, $dnumber;
+			printf "re-add: (%d) %s disc %d\n", $album_years{$album}, $album, $dnumber;
 			my $tracks = $discs->{$dnumber};
 			foreach my $tnumber (sort {$a <=> $b} keys %$tracks) {
 				my $script = $applescript_readd_track;
 				$script =~ s/<ID>/$tracks->{$tnumber}/g;
 				tell_osascript($script);
 			}
+		}
+	} sort {
+		if ( $album_years{$a} != $album_years{$b} ) {
+			return $album_years{$a} <=> $album_years{$b};
+		} else {
+			return $a cmp $b;
 		}
 	} keys %albums;
 	print "finished.\n";
@@ -110,7 +127,7 @@ sub tell_osascript($) {
 
 	$script =~ s/\"/"\\\""/eg;
 	open (my $osa, qq{osascript -e "$script" |}) or die "cannot open osascript";
-	my $result = <$osa>;
+	my $result = Encode::decode('utf8', <$osa>);
 	close $osa;
 
 	return $result;
