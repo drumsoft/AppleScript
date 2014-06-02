@@ -109,6 +109,7 @@ sub main {
 				my $script = $applescript_readd_track;
 				$script =~ s/<ID>/$tracks->{$tnumber}/g;
 				tell_osascript($script);
+				sleep(1);
 			}
 		}
 	} sort {
