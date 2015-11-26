@@ -1,6 +1,21 @@
 # AppleScripts for iTunes song's metadata.
 
 ------------------------------------------------------------
+## iTunes - paste song names from clipboard.scpt (executable)
+## iTunes - paste song names from clipboard.scpt (source)
+
+* Paste song names from clipboard.
+* Usage: Copy list of song names from spreadsheets or text editors and run this script.
+  * Text Editors: Song names are delimited by newlines. Optionally, artist names after tab characters.
+  * Spreadsheets: Write song names in each rows. second columns for artist names optionally.
+
+* 複数の曲名をクリップボードからペーストする
+* 使い方: スプレッドシートやテキストエディタから曲名リストをコピーして、このスクリプトを実行する。
+  * テキストエディタを使う場合: 曲名の区切りは改行、タブ記号の後にアーティスト名を指定できる。
+  * スプレッドシートの場合: 行ごとに曲名を入力。2カラム目にアーティスト名を指定できる。
+
+
+------------------------------------------------------------
 ## iTunesStore - fix insane added dates.command
 
 * remove selected tracks and re-add with track number order to fix randomized "date added" order.
