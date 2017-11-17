@@ -8,17 +8,18 @@
 
 tell application "iTunes"
 	set theTracks to selection of front browser window
-	set theTracksRef to a reference to theTracks
-	repeat with i from 1 to count of theTracksRef by 2
-		set theTrack to item i of my theTracksRef
-		tell theTrack
-			set tempArtist to name
-			set tempName to artist
-		end tell
-		set theTrack to item (i + 1) of my theTracksRef
-		tell theTrack
-			set name to tempArtist
-			set artist to tempName
-		end tell
+	if 1 = ((count of theTracks) mod 2) then
+		error "トラックの選択数が奇数です"
+	end if
+	repeat with i from 1 to count of theTracks by 2
+		if (track number of item i of my theTracks) ≠ (track number of item (i + 1) of my theTracks) then
+			error "コピー先とコピー元のトラック番号が違う [" & (name of item i of my theTracks) & "]→[" & (name of item (i + 1) of my theTracks) & "]"
+		end if
+	end repeat
+	repeat with i from 1 to count of theTracks by 2
+		set oddTrack to item i of my theTracks
+		set evenTrack to item (i + 1) of my theTracks
+		set (name of evenTrack) to (name of oddTrack as string)
+		set (artist of evenTrack) to (artist of oddTrack as string)
 	end repeat
 end tell
