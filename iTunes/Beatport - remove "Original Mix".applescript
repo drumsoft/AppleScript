@@ -4,8 +4,6 @@
 -- 曲名から Beatport の " - Original Mix", " (Original Mix)" を抜く
 -- 使い方: iTunesで曲を選択してスクリプトを実行
 
--- Original Mix っていちいち付ける必要ねーだろ
-
 tell application "iTunes"
 	set defaultDelimiter to AppleScript's text item delimiters
 	

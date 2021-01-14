@@ -4,8 +4,6 @@
 -- 選択した曲に連番でトラック番号を振る(Beatportで買うと振られてない)
 -- 使い方: iTunesでプレイリスト中の曲をソートし、曲を選択して、スクリプトを実行
 
--- トラック番号くらい振っておいてくれ
-
 tell application "iTunes"
 	set theTracks to selection of front browser window
 	set theTracksRef to a reference to theTracks
