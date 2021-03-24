@@ -14,6 +14,11 @@
   * テキストエディタを使う場合: 曲名の区切りは改行、タブ記号の後にアーティスト名を指定できる。
   * スプレッドシートの場合: 行ごとに曲名を入力。2カラム目にアーティスト名を指定できる。
 
+おまけ: Discogs の曲リストをこのスクリプトでペーストできるテキストにするブックマークレット
+
+```
+javascript:$("table.playlist").each(function(i,e){$("textarea").val($("tr.track",e).map(function(i,e){$(".tracklist_content_multi_artist_dash",e).empty();return [$("span.tracklist_track_title",e).text(),$("td.tracklist_track_artists",e).text().replace(/ \(\d+\)$/,"").replace(/\*$/,"")].join("\t").replace(/^[\s\t\r\n]+/,"").replace(/[\s\t\r\n]+$/,"")}).get().join("\n")).insertBefore(e);});void(0);
+```
 
 ------------------------------------------------------------
 ## Music - fix insane added dates.command
