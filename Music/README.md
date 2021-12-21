@@ -1,6 +1,18 @@
 # AppleScripts for Music song's metadata.
 
 ------------------------------------------------------------
+## Music - move long title from track name to comment.applescript
+
+* Move title text from name to comment and set temporary short title like "track 3".
+* Usage: Select songs on Music and Run.
+
+* 長い曲名をコメント欄に退避して、代わりに "track 3" みたいな短い名前をつける.
+* 使い方: Music で曲を選択して、スクリプトを実行
+
+* 長い曲名のトラック（アーティスト名、アルバム名も含めた「合計の長さ」で判定されるが）は「ライブラリを書き出し」で Location が正しく出力されない。Appleに報告してもなおしてくれないので、トラック名の方を短くするしかない。
+
+
+------------------------------------------------------------
 ## Music - paste song names from clipboard.scpt (executable)
 ## Music - paste song names from clipboard.scpt (source)
 
@@ -14,10 +26,10 @@
   * テキストエディタを使う場合: 曲名の区切りは改行、タブ記号の後にアーティスト名を指定できる。
   * スプレッドシートの場合: 行ごとに曲名を入力。2カラム目にアーティスト名を指定できる。
 
-おまけ: Discogs の曲リストをこのスクリプトでペーストできるテキストにするブックマークレット
+おまけ: Discogs の曲リストをこのスクリプトでペーストできるテキストにするブックマークレット(Discog側仕様が変わったので調整中)
 
 ```
-javascript:$("table.playlist").each(function(i,e){$("textarea").val($("tr.track",e).map(function(i,e){$(".tracklist_content_multi_artist_dash",e).empty();return [$("span.tracklist_track_title",e).text(),$("td.tracklist_track_artists",e).text().replace(/ \(\d+\)$/,"").replace(/\*$/,"")].join("\t").replace(/^[\s\t\r\n]+/,"").replace(/[\s\t\r\n]+$/,"")}).get().join("\n")).insertBefore(e);});void(0);
+javascript:var table=document.querySelector("#release-tracklist table"),result=document.createElement("div");result.innerHTML='<textarea onclick="this.select();" readonly>'+Array.from(table.querySelectorAll("tr")).map(function(e){return [e.querySelector("td:nth-of-type(3) span").textContent,e.querySelector("td:nth-of-type(2) span").textContent.replace(/ \(\d+\)$/,"").replace(/\*$/,"")].join("\t").replace(/^[\s\t\r\n]+/,"").replace(/[\s\t\r\n]+$/,"")}).join("\n")+'</textarea>';table.parentNode.insertBefore(result,table);
 ```
 
 ------------------------------------------------------------
